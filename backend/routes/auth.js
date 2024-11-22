@@ -2,14 +2,12 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const crypto = require("crypto");
-
 
 const router = express.Router();
-const JWT_SECRET = crypto.randomBytes(64).toString("hex");
+const JWT_SECRET = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDAxNDM0ZmZlODQzMmI3ZGI4YmQ0MiIsImlhdCI6MTczMjI1NDMzOCwiZXhwIjoxNzMyMjU3OTM4fQ.sNCT7ncHCIyWbAk1TSlEQSk8-Y9jXwYeSWkf4Ib4gc0";
 
 
-router.post("/register-user", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = new User({ username, password });
@@ -21,7 +19,7 @@ router.post("/register-user", async (req, res) => {
 });
 
 
-router.post("/login-user", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
