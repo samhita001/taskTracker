@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "../styles/style.css";
 import axios from "axios";
-import Task from "./Task";
 
 const TaskManager = () => {
     const [tasks, setTasks] = useState([]);
@@ -62,9 +62,11 @@ const TaskManager = () => {
     };
 
     return (
-        <div>
+        <div className="task-manager">
             <h2>Task Manager</h2>
             <button onClick={handleLogout}>Logout</button>
+
+            <div className="task-form">
             <form onSubmit={handleAddTask}>
                 <input
                     type="text"
@@ -75,6 +77,7 @@ const TaskManager = () => {
                 <button type="submit">Add Task</button>
             </form>
             <button onClick={handleClearTasks}>Clear All</button>
+            </div>
 
             <table>
                 <thead>
@@ -87,7 +90,7 @@ const TaskManager = () => {
                 <tbody>
                     {tasks.map((task) => (
                         <tr key={task._id}>
-                            <td>{task.title}</td>
+                            <td style={{ textDecoration: task.completed ? "line-through" : "none" }}>{task.title}</td>
                             <td>
                                 {task.completed ? (
                                     <span style={{ color: "green" }}>Completed</span>
@@ -108,12 +111,6 @@ const TaskManager = () => {
                     ))}
                 </tbody>
             </table>
-            <div>
-                <h1>All task list</h1>
-                {tasks.map((task) => (
-                    <Task key={task._id} task={task} fetchTasks={fetchTasks} />
-                ))}
-            </div>
         </div>
     );
 };
