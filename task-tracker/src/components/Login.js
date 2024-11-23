@@ -14,6 +14,7 @@ const Login = () => {
       const res = await axios.post("http://localhost:3000/api/auth/login", { username, password });
       localStorage.setItem("token", res.data.token);
       navigate("/tasks");
+      window.location.reload();
     } catch (err) {
       alert("Invalid credentials");
     }
